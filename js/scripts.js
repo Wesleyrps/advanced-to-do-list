@@ -6,8 +6,11 @@ const editForm = document.querySelector('#edit-form');
 const editInput = document.querySelector('#edit-input');
 const cancelEditBtn = document.querySelector('#cancel-edit-btn');
 
+const localStorageKey = 'wslim-to-do-list'
+
 let oldInputValue;
 
+// -------------------------------------------------------------------------------------------------------------------------
 // Funções
 const saveToDo = (text) => {
 
@@ -35,6 +38,16 @@ const saveToDo = (text) => {
     
     toDoList.appendChild(toDo);
 
+    // Armazenamento em local storage
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+
+    values.push({
+        name: toDoTitle.innerText,
+        class: toDo.className
+    })
+    localStorage.setItem(localStorageKey,JSON.stringify(values))
+    // ------------------------------
+    
     toDoInput.value = '';
     toDoInput.focus();
 };
@@ -43,25 +56,70 @@ const toggleForms = () => {
     editForm.classList.toggle("hide");
     toDoForm.classList.toggle("hide");
     toDoList.classList.toggle("hide");
-}
+};
 
 const updateToDo = (text) => {
-
     const toDos = document.querySelectorAll(".to-do");
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
 
     toDos.forEach((toDoTask) => {
-
-        let toDoTitle = toDoTask.querySelector('h3');
+        let toDoTitle = toDoTask.querySelector('h3'); 
+        let index = values.findIndex(x => x.name == toDoTitle.innerText) 
 
         if(toDoTitle.innerText === oldInputValue){
             toDoTitle.innerText = text
+            values[index].name = text
         }
+    })   
+    
+    localStorage.setItem(localStorageKey,JSON.stringify(values))
+};
 
-    })
+const checkToDo = (text) => {
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+    let index = values.findIndex(x => x.name == text)
+
+    if (values[index].class === 'to-do done'){
+        values[index].class = 'to-do'
+    } 
+    else if (values[index].class === 'to-do'){
+        values[index].class = 'to-do done'
+    }
+
+    localStorage.setItem(localStorageKey,JSON.stringify(values))
 
 }
 
+const removeToDo = (text) => {
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+    let index = values.findIndex(x => x.name == text)
 
+    values.splice(index,1)
+    localStorage.setItem(localStorageKey,JSON.stringify(values))
+};
+
+const showValues = () => {
+    let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+    let list = document.getElementById('to-do-list')
+    list.innerHTML = ''
+    for(let i = 0; i < values.length; i++) {
+        list.innerHTML += 
+                        `<div class="${values[i]['class']}">
+                            <h3>${values[i]['name']}</h3>
+                            <button class="finish-to-do">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="edit-to-do">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button class="remove-to-do">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>`
+    }
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
 // Eventos
 toDoForm.addEventListener("submit",(e) => {
     
@@ -71,6 +129,7 @@ toDoForm.addEventListener("submit",(e) => {
 
     if(inputValue) {
         saveToDo(inputValue);
+        showValues();
     }    
 });
 
@@ -85,11 +144,13 @@ document.addEventListener('click',(e) => {
     }
 
     if(targetElement.classList.contains("finish-to-do")) {
-        parentElement.classList.toggle("done")
+        parentElement.classList.toggle("done");
+        checkToDo(toDoTitle);
     }
 
     if(targetElement.classList.contains("remove-to-do")) {
         parentElement.remove();
+        removeToDo(toDoTitle);
     }
 
     if(targetElement.classList.contains("edit-to-do")) {
@@ -120,3 +181,9 @@ editForm.addEventListener('submit', (e) => {
 
     toggleForms();
 })
+
+
+
+
+
+showValues();
