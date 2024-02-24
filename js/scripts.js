@@ -5,6 +5,7 @@ const toDoList = document.querySelector('#to-do-list');
 const editForm = document.querySelector('#edit-form');
 const editInput = document.querySelector('#edit-input');
 const cancelEditBtn = document.querySelector('#cancel-edit-btn');
+const filter = document.querySelector('#filter-select')
 
 const localStorageKey = 'wslim-to-do-list'
 
@@ -98,12 +99,14 @@ const removeToDo = (text) => {
     localStorage.setItem(localStorageKey,JSON.stringify(values))
 };
 
-const showValues = () => {
+const showValues = (text = 'all') => {
     let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
     let list = document.getElementById('to-do-list')
     list.innerHTML = ''
     for(let i = 0; i < values.length; i++) {
-        list.innerHTML += 
+        if(values[i].class === 'to-do '+text) {
+            
+            list.innerHTML += 
                         `<div class="${values[i]['class']}">
                             <h3>${values[i]['name']}</h3>
                             <button class="finish-to-do">
@@ -116,6 +119,39 @@ const showValues = () => {
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>`
+        }
+        else if(values[i].class === text) {
+            
+            list.innerHTML += 
+                        `<div class="${values[i]['class']}">
+                            <h3>${values[i]['name']}</h3>
+                            <button class="finish-to-do">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="edit-to-do">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button class="remove-to-do">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>`
+        }
+        else if(text === 'all') {
+            
+            list.innerHTML += 
+                        `<div class="${values[i]['class']}">
+                            <h3>${values[i]['name']}</h3>
+                            <button class="finish-to-do">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="edit-to-do">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button class="remove-to-do">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>`
+        }
     }
 }
 
@@ -183,6 +219,12 @@ editForm.addEventListener('submit', (e) => {
 })
 
 
+filter.addEventListener('change', (e) => {
+    e.preventDefault();
+    
+    selectedValue = filter.options[filter.selectedIndex].value
+    showValues(selectedValue);
+})
 
 
 
