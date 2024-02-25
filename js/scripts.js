@@ -6,6 +6,7 @@ const editForm = document.querySelector('#edit-form');
 const editInput = document.querySelector('#edit-input');
 const cancelEditBtn = document.querySelector('#cancel-edit-btn');
 const filter = document.querySelector('#filter-select')
+const search = document.querySelector('#search')
 
 const localStorageKey = 'wslim-to-do-list'
 
@@ -99,6 +100,7 @@ const removeToDo = (text) => {
     localStorage.setItem(localStorageKey,JSON.stringify(values))
 };
 
+
 const showValues = (text = 'all') => {
     let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
     let list = document.getElementById('to-do-list')
@@ -153,6 +155,19 @@ const showValues = (text = 'all') => {
                         </div>`
         }
     }
+}
+
+const searchFilter = (e) => {
+    //console.log(e.target.value.toLowerCase());
+    let list = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+    let taskList = [];
+    
+    for(var i in list)
+        taskList.push(list[i].name);
+
+    let temp = ''
+    const result = taskList.filter(item=> item.toLowerCase().includes(e.target.value.toLowerCase()));
+    console.log(result)
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
@@ -225,6 +240,8 @@ filter.addEventListener('change', (e) => {
     selectedValue = filter.options[filter.selectedIndex].value
     showValues(selectedValue);
 })
+
+search.addEventListener('input', searchFilter)
 
 
 
