@@ -102,7 +102,7 @@ const removeToDo = (text) => {
 };
 
 
-const showValues = (text = 'all') => {
+const showValues = (text = 'to-do') => {
     let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
     let list = document.getElementById('to-do-list')
     list.innerHTML = ''
@@ -264,4 +264,4 @@ filter.addEventListener('change', (e) => {
 
 search.addEventListener('input', searchFilter)
 
-showValues('to-do');
+showValues();
