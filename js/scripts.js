@@ -45,7 +45,8 @@ const saveToDo = (text) => {
 
     values.push({
         name: toDoTitle.innerText,
-        class: toDo.className
+        class: toDo.className,
+        createDate: getCurrentData(),
     })
     localStorage.setItem(localStorageKey,JSON.stringify(values))
     // ------------------------------
@@ -111,6 +112,7 @@ const showValues = (text = 'all') => {
             list.innerHTML += 
                         `<div class="${values[i]['class']}">
                             <h3>${values[i]['name']}</h3>
+                            <p>${values[i]['createDate']}</p>
                             <button class="finish-to-do">
                                 <i class="fa-solid fa-check"></i>
                             </button>
@@ -127,6 +129,7 @@ const showValues = (text = 'all') => {
             list.innerHTML += 
                         `<div class="${values[i]['class']}">
                             <h3>${values[i]['name']}</h3>
+                            <p>${values[i]['createDate']}</p>
                             <button class="finish-to-do">
                                 <i class="fa-solid fa-check"></i>
                             </button>
@@ -136,13 +139,15 @@ const showValues = (text = 'all') => {
                             <button class="remove-to-do">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
-                        </div>`
+                        </div>
+                        `
         }
         else if(text === 'all') {
-            
+            console.log(values[i]['create-date']);
             list.innerHTML += 
                         `<div class="${values[i]['class']}">
                             <h3>${values[i]['name']}</h3>
+                            <p>${values[i]['createDate']}</p>
                             <button class="finish-to-do">
                                 <i class="fa-solid fa-check"></i>
                             </button>
@@ -168,6 +173,16 @@ const searchFilter = (e) => {
     let temp = ''
     const result = taskList.filter(item=> item.toLowerCase().includes(e.target.value.toLowerCase()));
     console.log(result)
+}
+
+function getCurrentData(){
+    const d = new Date();
+    let day = d.getDate();
+    let month = d.getMonth()+1;
+    let year = d.getFullYear();
+    let currentData = day+'/'+month+'/'+year;
+    return currentData;
+
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
@@ -242,7 +257,5 @@ filter.addEventListener('change', (e) => {
 })
 
 search.addEventListener('input', searchFilter)
-
-
 
 showValues();

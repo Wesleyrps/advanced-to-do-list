@@ -143,6 +143,10 @@ input, select {
     font-size: .9rem;
 }
 
+.to-do p {
+    font-size: .7rem;
+}
+
 .to-do button {
     margin-left: 0.4rem;
 }
