@@ -111,8 +111,10 @@ const showValues = (text = 'all') => {
             
             list.innerHTML += 
                         `<div class="${values[i]['class']}">
-                            <h3>${values[i]['name']}</h3>
-                            <p>${values[i]['createDate']}</p>
+                            <div class="name-date-to-do">    
+                                <h3>${values[i]['name']}</h3>
+                                <p>${values[i]['createDate']}</p>
+                            </div>
                             <button class="finish-to-do">
                                 <i class="fa-solid fa-check"></i>
                             </button>
@@ -128,8 +130,10 @@ const showValues = (text = 'all') => {
             
             list.innerHTML += 
                         `<div class="${values[i]['class']}">
-                            <h3>${values[i]['name']}</h3>
-                            <p>${values[i]['createDate']}</p>
+                            <div class="name-date-to-do">    
+                                <h3>${values[i]['name']}</h3>
+                                <p>${values[i]['createDate']}</p>
+                            </div>
                             <button class="finish-to-do">
                                 <i class="fa-solid fa-check"></i>
                             </button>
@@ -146,8 +150,10 @@ const showValues = (text = 'all') => {
             console.log(values[i]['create-date']);
             list.innerHTML += 
                         `<div class="${values[i]['class']}">
-                            <h3>${values[i]['name']}</h3>
-                            <p>${values[i]['createDate']}</p>
+                            <div class="name-date-to-do">    
+                                <h3>${values[i]['name']}</h3>
+                                <p>${values[i]['createDate']}</p>
+                            </div>
                             <button class="finish-to-do">
                                 <i class="fa-solid fa-check"></i>
                             </button>

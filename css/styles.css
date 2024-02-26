@@ -51,7 +51,7 @@ input, select {
 
 /* To Do Header*/
 .to-do-container {
-   max-width: 450px;
+   max-width: 550px;
    margin: 3rem auto;
    background-color: #fdfdfd;
    padding: 1.5rem;
@@ -138,13 +138,20 @@ input, select {
     transition: .3s;
 }
 
-.to-do h3 {
+.name-date-to-do {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-date-to-do h3 {
     flex: 1;
     font-size: .9rem;
 }
-
-.to-do p {
+.name-date-to-do p {
+    margin-top: .2rem;
     font-size: .7rem;
+    color: #777;
 }
 
 .to-do button {
