@@ -264,4 +264,4 @@ filter.addEventListener('change', (e) => {
 
 search.addEventListener('input', searchFilter)
 
-showValues();
+showValues('to-do');
