@@ -5,8 +5,9 @@ const toDoList = document.querySelector('#to-do-list');
 const editForm = document.querySelector('#edit-form');
 const editInput = document.querySelector('#edit-input');
 const cancelEditBtn = document.querySelector('#cancel-edit-btn');
-const filter = document.querySelector('#filter-select')
-const search = document.querySelector('#search')
+const toolbar = document.querySelector('#toolbar');
+const filter = document.querySelector('#filter-select');
+const search = document.querySelector('#search');
 
 const localStorageKey = 'wslim-to-do-list'
 
@@ -59,6 +60,7 @@ const toggleForms = () => {
     editForm.classList.toggle("hide");
     toDoForm.classList.toggle("hide");
     toDoList.classList.toggle("hide");
+    toolbar.classList.toggle("hide");
 };
 
 const updateToDo = (text) => {

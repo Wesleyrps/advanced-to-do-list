@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+.hide {
+    display: none !important;
+}
+
 body {
     background-image: url('../img/blue-bg.jpg');
     background-position: center;
@@ -43,10 +47,6 @@ button i {
 
 input, select {
     padding: 0.25rem 0.5rem;
-}
-
-.hide {
-    display: none;
 }
 
 /* To Do Header*/
