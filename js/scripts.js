@@ -43,11 +43,13 @@ const saveToDo = (text) => {
 
     // Armazenamento em local storage
     let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+    let lastID = values.length === 0 ? 0 : values[values.length-1].id
 
     values.push({
+        id: lastID+1,
         name: toDoTitle.innerText,
         class: toDo.className,
-        createDate: getCurrentData(),
+        createDate: getCurrentDate(),
     })
     localStorage.setItem(localStorageKey,JSON.stringify(values))
     // ------------------------------
@@ -55,7 +57,8 @@ const saveToDo = (text) => {
     toDoInput.value = '';
     toDoInput.focus();
 };
-
+// let values = JSON.parse(localStorage.getItem(localStorageKey) || "[]")
+// console.log(values[values.length-1].id)
 const toggleForms = () => {
     editForm.classList.toggle("hide");
     toDoForm.classList.toggle("hide");
@@ -183,12 +186,12 @@ const searchFilter = (e) => {
     console.log(result)
 }
 
-function getCurrentData(){
+function getCurrentDate(){
     const d = new Date();
     let day = d.getDate();
     let month = d.getMonth()+1;
     let year = d.getFullYear();
-    let currentData = day+'/'+month+'/'+year;
+    let currentData = month<10 ? day+'/0'+month+'/'+year : day+'/'+month+'/'+year;
     return currentData;
 
 }
