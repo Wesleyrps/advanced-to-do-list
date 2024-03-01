@@ -4,8 +4,7 @@ export class TaskList{
         this.showTasks(storage, filterText);
     }
 
-    showTasks(storage, filterText = 'to-do') {
-        let values = JSON.parse(localStorage.getItem(storage) || "[]")
+    showTasks(values, filterText = 'to-do') {
         let list = document.getElementById('to-do-list')
 
         list.innerHTML = ''
@@ -105,4 +104,73 @@ export class TaskList{
         values.splice(index,1)
         localStorage.setItem(storage,JSON.stringify(values))
     }
+
+    // teste (values, filterText = 'to-do'){
+    //     let list = document.getElementById('to-do-list')
+
+    //     list.innerHTML = ''
+    //     for(let i = 0; i < values.length; i++) {
+    //         if(values[i].class === 'to-do '+filterText) {
+                
+    //             list.innerHTML += 
+    //                         `<div class="${values[i]['class']}">
+    //                             <div class="name-date-to-do">    
+    //                                 <h4 class="hide">${values[i]['id']}</h4>     
+    //                                 <h3>${values[i]['name']}</h3>
+    //                                 <p>${values[i]['createDate']}</p>
+    //                             </div>
+    //                             <button class="finish-to-do">
+    //                                 <i class="fa-solid fa-check"></i>
+    //                             </button>
+    //                             <button class="edit-to-do">
+    //                                 <i class="fa-solid fa-pen"></i>
+    //                             </button>
+    //                             <button class="remove-to-do">
+    //                                 <i class="fa-solid fa-xmark"></i>
+    //                             </button>
+    //                         </div>`
+    //         }
+    //         else if(values[i].class === filterText) {
+                
+    //             list.innerHTML += 
+    //                         `<div class="${values[i]['class']}">
+    //                             <div class="name-date-to-do">  
+    //                                 <h4 class="hide">${values[i]['id']}</h4> 
+    //                                 <h3>${values[i]['name']}</h3>
+    //                                 <p>${values[i]['createDate']}</p>
+    //                             </div>
+    //                             <button class="finish-to-do">
+    //                                 <i class="fa-solid fa-check"></i>
+    //                             </button>
+    //                             <button class="edit-to-do">
+    //                                 <i class="fa-solid fa-pen"></i>
+    //                             </button>
+    //                             <button class="remove-to-do">
+    //                                 <i class="fa-solid fa-xmark"></i>
+    //                             </button>
+    //                         </div>
+    //                         `
+    //         }
+    //         else if(filterText === 'all') {
+    //             console.log(values[i]['create-date']);
+    //             list.innerHTML += 
+    //                         `<div class="${values[i]['class']}">
+    //                             <div class="name-date-to-do">   
+    //                                 <h4 class="hide">${values[i]['id']}</h4>  
+    //                                 <h3>${values[i]['name']}</h3>
+    //                                 <p>${values[i]['createDate']}</p>
+    //                             </div>
+    //                             <button class="finish-to-do">
+    //                                 <i class="fa-solid fa-check"></i>
+    //                             </button>
+    //                             <button class="edit-to-do">
+    //                                 <i class="fa-solid fa-pen"></i>
+    //                             </button>
+    //                             <button class="remove-to-do">
+    //                                 <i class="fa-solid fa-xmark"></i>
+    //                             </button>
+    //                         </div>`
+    //         }
+    //     }
+    // }
 }

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced To Do</title>
+    <title>Task List</title>
     <!-- CSS do projeto -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./fonts/fonts.css">
     <!-- Font Awesome -->
     <link 
         rel="stylesheet" 
@@ -21,12 +22,17 @@
 <body>
     <div class="to-do-container">
         <header>
-            <h1>Advanced To Do</h1>
+            <h1 id="task-title">Task List</h1>
         </header>
+        <button id="edit-title-button"></button>
+        <form id="edit-title-form" class="hide">
+            <input type="text" id="new-title-input" placeholder="Type a new title..." class="input-default-style">
+            <button id="new-title-button" class="hide">ok</button>
+        </form>
         <form id="to-do-form">
             <p>Insert your task:</p>
             <div class="form-control">
-                <input type="text" id="to-do-input" placeholder="O que você vai fazer?">
+                <input type="text" id="to-do-input" placeholder="What will you do?" class="input-default-style">
                 <button type="submit">
                     <i class="fa-thin fa-plus"></i> 
                 </button>
@@ -35,7 +41,7 @@
         <form id="edit-form" class="hide">
             <p>Edit your task:</p>
             <div class="form-control">
-                <input type="text" id="edit-input">
+                <input type="text" id="edit-input" class="input-default-style">
                 <button type="submit">
                     <i class="fa-solid fa-check-double"></i>
                 </button>
@@ -46,7 +52,7 @@
             <div id="search">
                 <h4>Search:</h4>
                 <form>
-                    <input type="text" id="search-input" placeholder="Buscar" >
+                    <input type="text" id="search-input" placeholder="Search" class="input-default-style">
                     <button id="erase-button">
                         <i class="fa-solid fa-delete-left"></i>
                     </button>
@@ -54,7 +60,7 @@
             </div>
             <div id="filter">
                 <h4>Filter:</h4>
-                <select id="filter-select">
+                <select id="filter-select" class="input-default-style">
                     <option value="all">All</option>
                     <option value="done">Done</option>
                     <option value="to-do" selected>To do</option>
@@ -65,5 +71,6 @@
             <!-- Aqui entram as tasks via Javascript -->
         </div>
     </div>
+    
 </body>
 </html>

@@ -22,37 +22,10 @@ export class Task{
             createDate: this._createDate,
         })
 
-        this.storeTask(inputText, storage, values)
+        this.storeTask(storage, values)
     };
 
-    storeTask (inputText, storage, storageSetValues) {
-        
-        const taskList = document.querySelector('#to-do-list');
-
-        const task = document.createElement("div");
-        task.classList.add("to-do");
-
-        const taskTitle = document.createElement("h3");
-        taskTitle.innerText = inputText;
-        task.appendChild(taskTitle);
-
-        const doneBtn = document.createElement("button");
-        doneBtn.classList.add("finish-to-do");
-        doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        task.appendChild(doneBtn);
-
-        const editBtn = document.createElement("button");
-        editBtn.classList.add("edit-to-do");
-        editBtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
-        task.appendChild(editBtn);
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("remove-to-do");
-        deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-        task.appendChild(deleteBtn);
-        
-        taskList.appendChild(task);
-
+    storeTask (storage, storageSetValues) {
         localStorage.setItem(storage,JSON.stringify(storageSetValues))
     }
 
