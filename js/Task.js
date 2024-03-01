@@ -34,7 +34,8 @@ export class Task{
         let day = d.getDate();
         let month = d.getMonth()+1;
         let year = d.getFullYear();
-        let currentData = month<10 ? day+'/0'+month+'/'+year : day+'/'+month+'/'+year;
+        let currentData = month<10 ? day<10 ? '0'+day+'/0'+month+'/'+year : day+'/0'+month+'/'+year : day+'/'+month+'/'+year; 
+
         return currentData;
     }    
 
