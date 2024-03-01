@@ -46,7 +46,7 @@ taskForm.addEventListener("submit",(e) => {
 
     if(inputValue) {
         let task = new Task(inputValue, localTaskStorageKey); 
-        taskList.showTasks(JSON.parse(localStorage.getItem(localTaskStorageKey) || "[]"));  
+        taskList.showTasks(JSON.parse(localStorage.getItem(localTaskStorageKey) || "[]"),selectedValue);  
         taskInput.value = '';
         taskInput.focus();     
     }    
