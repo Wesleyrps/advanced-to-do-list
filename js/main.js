@@ -87,7 +87,7 @@ editForm.addEventListener('submit', (e) => {
     }
 
     toggleForms();
-    taskList.showTasks(JSON.parse(localStorage.getItem(localTaskStorageKey) || "[]"));
+    taskList.showTasks(JSON.parse(localStorage.getItem(localTaskStorageKey) || "[]"),selectedValue);
 })
 
 filter.addEventListener('change', (e) => {
