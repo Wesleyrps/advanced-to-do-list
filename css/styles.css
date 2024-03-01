@@ -15,6 +15,7 @@ body {
     background-image: url('../img/bg.jpg');
     background-position: center;
     background-size: auto;
+    margin: auto 0.5rem;
 }
 
 button {
