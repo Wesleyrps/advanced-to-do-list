@@ -1,63 +1,49 @@
 export class TaskList{
     
-    constructor (storage, filterText){
-        this.showTasks(storage, filterText);
+    _list;
+
+    constructor (list){
+        this._list = list
+        this.showTasks();
     }
 
-    showTasks(values, filterText = 'to-do') {
+    addTask(taskId, taskName) {
+        this._list.push({
+            id: taskId,
+            name: taskName,
+            class: "to-do",
+            createDate: this.getCurrentDate()
+        })
+    }
+
+    getTasks() { return this._list; }
+
+    showTasks(filterText = 'to-do', searchValue = this._list) {
         let list = document.getElementById('to-do-list')
 
         list.innerHTML = ''
-        for(let i = 0; i < values.length; i++) {
-            if(values[i].class === 'to-do '+filterText) {
-                
-                list.innerHTML += 
-                            `<div class="${values[i]['class']}">
-                                <div class="name-date-to-do">    
-                                    <h4 class="hide">${values[i]['id']}</h4>     
-                                    <h3>${values[i]['name']}</h3>
-                                    <p>${values[i]['createDate']}</p>
-                                </div>
-                                <button class="finish-to-do">
-                                    <i class="fa-solid fa-check"></i>
-                                </button>
-                                <button class="edit-to-do">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="remove-to-do">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>`
+        for(let i = 0; i < searchValue.length; i++) {
+            if(searchValue[i].class === 'to-do '+filterText) {
+                this.tasksHTML(list, searchValue, i); 
             }
-            else if(values[i].class === filterText) {
-                
-                list.innerHTML += 
-                            `<div class="${values[i]['class']}">
-                                <div class="name-date-to-do">  
-                                    <h4 class="hide">${values[i]['id']}</h4> 
-                                    <h3>${values[i]['name']}</h3>
-                                    <p>${values[i]['createDate']}</p>
-                                </div>
-                                <button class="finish-to-do">
-                                    <i class="fa-solid fa-check"></i>
-                                </button>
-                                <button class="edit-to-do">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="remove-to-do">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                            `
+            else if(searchValue[i].class === filterText) {
+                this.tasksHTML(list, searchValue, i); 
             }
             else if(filterText === 'all') {
-                console.log(values[i]['create-date']);
-                list.innerHTML += 
-                            `<div class="${values[i]['class']}">
-                                <div class="name-date-to-do">   
-                                    <h4 class="hide">${values[i]['id']}</h4>  
-                                    <h3>${values[i]['name']}</h3>
-                                    <p>${values[i]['createDate']}</p>
+                this.tasksHTML(list, searchValue, i); 
+            }
+        }
+
+        return this._list;
+    }
+
+    tasksHTML(list, searchValue, i) {
+        return list.innerHTML += 
+                            `<div class="${searchValue[i]['class']}">
+                                <div class="name-date-to-do">    
+                                    <h4 class="hide">${searchValue[i]['id']}</h4>     
+                                    <h3>${searchValue[i]['name']}</h3>
+                                    <p>${searchValue[i]['createDate']}</p>
                                 </div>
                                 <button class="finish-to-do">
                                     <i class="fa-solid fa-check"></i>
@@ -69,108 +55,40 @@ export class TaskList{
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>`
-            }
-        }
     }
 
-    checkTask (storage, id) {
-        let values = JSON.parse(localStorage.getItem(storage) || "[]")
-        let index = values.findIndex(x => x.id == id)
+    checkTask (id) {
+        let index = this._list.findIndex(x => x.id == id)
 
-        if (values[index].class === 'to-do done'){
-            values[index].class = 'to-do'
-        } 
-        else if (values[index].class === 'to-do'){
-            values[index].class = 'to-do done'
-        }
-
-        localStorage.setItem(storage,JSON.stringify(values))
-    }
-
-    updateTask (storage, id, newTaskName) {
-        let values = JSON.parse(localStorage.getItem(storage) || "[]")
-        let index = values.findIndex(x => x.id == id) 
-        let oldTaskName = document.querySelector('h3');
-
-        values[index]['name'] = newTaskName
         
-        localStorage.setItem(storage,JSON.stringify(values))
+
+        if (this._list[index].class === 'to-do done'){
+            this._list[index].class = 'to-do'
+        } 
+        else if (this._list[index].class === 'to-do'){
+            this._list[index].class = 'to-do done'
+        }
     }
 
-    removeTask (storage, id) {
-        let values = JSON.parse(localStorage.getItem(storage) || "[]")
-        let index = values.findIndex(x => x.id == id)
+    updateTask (id, newTaskName) {
+        let index = this._list.findIndex(x => x.id == id); 
+
+        this._list[index]['name'] = newTaskName;
+    }
+
+    removeTask (id) {
+        let index = this._list.findIndex(x => x.id == id)
     
-        values.splice(index,1)
-        localStorage.setItem(storage,JSON.stringify(values))
+        this._list.splice(index,1)
     }
 
-    // teste (values, filterText = 'to-do'){
-    //     let list = document.getElementById('to-do-list')
+    getCurrentDate() {
+        const d = new Date();
+        let day = d.getDate();
+        let month = d.getMonth()+1;
+        let year = d.getFullYear();
+        let currentData = month<10 ? day<10 ? '0'+day+'/0'+month+'/'+year : day+'/0'+month+'/'+year : day+'/'+month+'/'+year; 
 
-    //     list.innerHTML = ''
-    //     for(let i = 0; i < values.length; i++) {
-    //         if(values[i].class === 'to-do '+filterText) {
-                
-    //             list.innerHTML += 
-    //                         `<div class="${values[i]['class']}">
-    //                             <div class="name-date-to-do">    
-    //                                 <h4 class="hide">${values[i]['id']}</h4>     
-    //                                 <h3>${values[i]['name']}</h3>
-    //                                 <p>${values[i]['createDate']}</p>
-    //                             </div>
-    //                             <button class="finish-to-do">
-    //                                 <i class="fa-solid fa-check"></i>
-    //                             </button>
-    //                             <button class="edit-to-do">
-    //                                 <i class="fa-solid fa-pen"></i>
-    //                             </button>
-    //                             <button class="remove-to-do">
-    //                                 <i class="fa-solid fa-xmark"></i>
-    //                             </button>
-    //                         </div>`
-    //         }
-    //         else if(values[i].class === filterText) {
-                
-    //             list.innerHTML += 
-    //                         `<div class="${values[i]['class']}">
-    //                             <div class="name-date-to-do">  
-    //                                 <h4 class="hide">${values[i]['id']}</h4> 
-    //                                 <h3>${values[i]['name']}</h3>
-    //                                 <p>${values[i]['createDate']}</p>
-    //                             </div>
-    //                             <button class="finish-to-do">
-    //                                 <i class="fa-solid fa-check"></i>
-    //                             </button>
-    //                             <button class="edit-to-do">
-    //                                 <i class="fa-solid fa-pen"></i>
-    //                             </button>
-    //                             <button class="remove-to-do">
-    //                                 <i class="fa-solid fa-xmark"></i>
-    //                             </button>
-    //                         </div>
-    //                         `
-    //         }
-    //         else if(filterText === 'all') {
-    //             console.log(values[i]['create-date']);
-    //             list.innerHTML += 
-    //                         `<div class="${values[i]['class']}">
-    //                             <div class="name-date-to-do">   
-    //                                 <h4 class="hide">${values[i]['id']}</h4>  
-    //                                 <h3>${values[i]['name']}</h3>
-    //                                 <p>${values[i]['createDate']}</p>
-    //                             </div>
-    //                             <button class="finish-to-do">
-    //                                 <i class="fa-solid fa-check"></i>
-    //                             </button>
-    //                             <button class="edit-to-do">
-    //                                 <i class="fa-solid fa-pen"></i>
-    //                             </button>
-    //                             <button class="remove-to-do">
-    //                                 <i class="fa-solid fa-xmark"></i>
-    //                             </button>
-    //                         </div>`
-    //         }
-    //     }
-    // }
+        return currentData;
+    }    
 }

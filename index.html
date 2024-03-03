@@ -21,10 +21,12 @@
 </head>
 <body>
     <div class="to-do-container">
-        <header>
+        <header class="to-do-container-header">
             <h1 id="task-title">Task List</h1>
+            <button id="edit-title-button">
+                <i class="fa-solid fa-pen"></i>
+            </button>
         </header>
-        <button id="edit-title-button"></button>
         <form id="edit-title-form" class="hide">
             <input type="text" id="new-title-input" placeholder="Type a new title..." class="input-default-style">
             <button id="new-title-button" class="hide">ok</button>
@@ -61,7 +63,7 @@
                 </form>
             </div>
             <div id="filter">
-                <h4>Filter:</h4>
+                <h4>Filter Tasks:</h4>
                 <select id="filter-select" class="input-default-style">
                     <option value="all">All</option>
                     <option value="done">Done</option>
@@ -72,7 +74,6 @@
         <div id="to-do-list">
             <!-- Aqui entram as tasks via Javascript -->
         </div>
-    </div>
-    
+    </div>   
 </body>
 </html>
