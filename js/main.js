@@ -13,6 +13,7 @@ const taskForm  = document.querySelector('#to-do-form');
 const taskInput = document.querySelector('#to-do-input');
 const filter = document.querySelector('#filter-select');
 const editForm = document.querySelector('#edit-form');
+const bgList = document.querySelector('#bg-list')
 const editInput = document.querySelector('#edit-input');
 const taskListContainer = document.querySelector('#to-do-list');
 const cancelEditBtn = document.querySelector('#cancel-edit-btn');
@@ -155,6 +156,7 @@ const toggleForms = (text = 'edit') => {
         taskForm.classList.toggle("hide");
         taskListContainer.classList.toggle("hide");
         toolbar.classList.toggle("hide");
+        bgList.classList.toggle("hide");
     }
     else if (text == 'edit'){
         editForm.classList.toggle("hide");
