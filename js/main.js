@@ -162,7 +162,7 @@ bgList.addEventListener('click',(e) => {
 
     if(targetElement.closest("img"))
         bg = targetElement.name;
-        newBG = `url('../img/${bg}.jpg')`;
+        newBG = `url('./img/${bg}.jpg')`;
 
         currentBg.setBG(newBG);
         bgStorage.setValues(currentBg.getBG());
