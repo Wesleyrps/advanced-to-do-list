@@ -3,10 +3,12 @@ import { TaskList } from "./TaskList.js";
 import { SmartSearch } from "./SmartSearch.js"
 import { Title } from "./Title.js";
 import { Storage } from "./Storage.js";
+import { Background } from "./Background.js";
 
 // Storage Keys
 const titleStorageKey = 'title-storage'; // Depois das substituições trocar para titleStorageKey
 const tasksStorageKey = 'task-list'; // Depois das substituições trocar para tasksStorageKey
+const bgStorageKey = 'current-bg'
 
 // HTML elements
 const taskForm  = document.querySelector('#to-do-form');
@@ -31,16 +33,20 @@ let taskId;
 let taskName;
 let selectedValue = 'to-do';
 let searchValue = '';
+let bg;
 
 // Objects
 const tasksStorage = new Storage(tasksStorageKey);
 const titleStorage = new Storage(titleStorageKey);
+const bgStorage = new Storage(bgStorageKey)
 const titleName = new Title(titleStorage.getValues());
 const taskList = new TaskList(tasksStorage.getValues());
 const smartSearch = new SmartSearch();
+const currentBg = new Background(bgStorage.getValues());
 
 // Initial show
 titleName.showTitle();
+currentBg.showBG();
 
 // Events
 editTitleButton.addEventListener('click', (e) => {
@@ -148,6 +154,20 @@ filter.addEventListener('change', (e) => {
 
     taskList.showTasks(selectedValue, smartSearch.searchFilter(searchValue,tasksStorage.getValues()));   
 });
+
+bgList.addEventListener('click',(e) => {
+    const targetElement = e.target;
+    
+    let newBG;
+
+    if(targetElement.closest("img"))
+        bg = targetElement.name;
+        newBG = `url('../img/${bg}.jpg')`;
+
+        currentBg.setBG(newBG);
+        bgStorage.setValues(currentBg.getBG());
+        currentBg.showBG();
+})
 
 const toggleForms = (text = 'edit') => {
 

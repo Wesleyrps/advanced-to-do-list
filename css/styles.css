@@ -61,10 +61,11 @@
 }
 
 body {
-    background-image: url('../img/bg1.jpg');
+    /* background-image: url('../img/bg1.jpg'); */
     background-position: center;
     background-size: auto;
     margin: auto 0.5rem;
+    transition: .5s;
 }
 
 button {
@@ -180,8 +181,6 @@ input, select {
 .input-default-style:focus {
     outline: none;
 }
-
-
 
 #edit-title-form {
     padding: 1rem;
