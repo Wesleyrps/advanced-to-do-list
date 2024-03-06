@@ -3,7 +3,7 @@ export class Background{
 
     constructor (bgPath) {
         if(bgPath == ''){
-            this._bgPath = `url('./img/bg1.jpg')`;
+            this._bgPath = `url('/img/bg1.jpg')`;
         }else{
             this._bgPath = bgPath;
         }
