@@ -193,7 +193,7 @@ input, select {
 }
 
 #edit-title-form input:hover {
-    margin: 0rem;
+    scale: 1.02;
 }
 
 #edit-title-form input:focus {
